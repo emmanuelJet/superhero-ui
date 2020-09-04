@@ -105,6 +105,12 @@ export default class Backend {
     return backendFetch(`cache/tips${query}`);
   };
 
+  static addToken = async (address) => backendFetch('tokenCache/addToken', {
+    method: 'post',
+    body: JSON.stringify({ address }),
+    headers: { 'Content-Type': 'application/json' },
+  });
+
   static getCacheStats = async () => backendFetch('cache/stats');
 
   static getCacheChainNames = async () => backendFetch('cache/chainnames');
@@ -120,6 +126,8 @@ export default class Backend {
   static getTokenBalances = async (address) => backendFetch(`tokenCache/balances?address=${address}`);
 
   static cacheInvalidateTips = async () => backendFetch('cache/invalidate/tips');
+
+  static invalidateTokenCache = async (token) => backendFetch(`tokenCache/invalidate/${token}`);
 
   static getCommentCountForAddress = async (address) => backendFetch(`comment/count/author/${address}`);
 
