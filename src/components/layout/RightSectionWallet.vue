@@ -33,7 +33,7 @@
 
       <template v-if="hasContractV2Address">
         <AeAmount
-          v-for="tokenBalance in tokenBalances"
+          v-for="tokenBalance in tokenBalances.filter(t => t.balance !== '0')"
           :key="tokenBalance.token"
           class="not-bootstrap-row"
           :amount="tokenBalance.balance"
