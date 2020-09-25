@@ -52,6 +52,7 @@ export default {
   }
 
   &.blue:hover,
+  &.red:hover,
   &.green:hover {
     color: $standard_font_color;
     border-color: $standard_font_color;
