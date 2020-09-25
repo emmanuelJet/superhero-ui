@@ -26,6 +26,11 @@ export default {
   padding: 0.6rem;
   min-width: 8rem;
 
+  &.unpadded {
+    padding: 0.2rem;
+    min-width: 3rem;
+  }
+
   &:hover {
     border-color: $custom_links_color;
     color: $custom_links_color;
@@ -39,6 +44,11 @@ export default {
   &.green {
     color: $custom_links_color;
     border-color: $custom_links_color;
+  }
+
+  &.red {
+    color: $red_color;
+    border-color: $red_color;
   }
 
   &.blue:hover,
