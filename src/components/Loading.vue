@@ -26,7 +26,7 @@ export default {
     position: relative;
   }
 
-  &.small{
+  &.small {
     height: 1rem;
 
     .spinner-border {
