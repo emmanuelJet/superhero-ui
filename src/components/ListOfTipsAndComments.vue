@@ -1,26 +1,18 @@
 <template>
   <div>
-    <div class="profile__actions">
-      <ActivityRibbon
-        :tabs="tabs"
-        :activity="activity"
-        :set="(setActivity) => activity = setActivity"
-      />
+    <ActivityRibbon
+      :tabs="ribbonTabs"
+      :activity="activity"
+      :set="(setActivity) => activity = setActivity"
+    />
 
-      <a
-        :class="{ active: activeTab === 'tips' }"
-        @click="setActiveTab('tips')"
-      >
-        {{ $t('tips') }}
-      </a>
-      <a
-        v-if="activity === 'activity'"
-        :class="{ active: activeTab === 'comments' }"
-        @click="setActiveTab('comments')"
-      >
-        {{ $t('comments') }}
-      </a>
-    </div>
+    <TabBar
+      v-if="activity === 'activity'"
+      :tabs="tabs"
+      :active-tab="activeTab"
+      :set="(setTab) => activeTab = setTab"
+    />
+
     <div class="position-relative">
       <div
         v-if="activeTab === 'tips' && activity === 'activity'"
@@ -84,9 +76,11 @@ import TipRecord from './tipRecords/TipRecord.vue';
 import IconChannel from '../assets/iconChannel.svg?icon-component';
 import IconActivity from '../assets/iconActivity.svg?icon-component';
 import ActivityRibbon from './ActivityRibbon.vue';
+import TabBar from './TabBar.vue';
 
 export default {
   components: {
+    TabBar,
     TipsPagination,
     Loading,
     TipComment,
@@ -114,8 +108,11 @@ export default {
     comments() {
       return this.$store.state.backend.userComments[this.address] || [];
     },
-    tabs() {
+    ribbonTabs() {
       return [{ icon: IconChannel, text: this.$t('components.ListOfTipsAndComments.Channel'), activity: 'channel' }, { icon: IconActivity, text: this.$t('components.ListOfTipsAndComments.Activity'), activity: 'activity' }];
+    },
+    tabs() {
+      return [{ text: this.$t('tips'), tab: 'tips' }, { text: this.$t('comments'), tab: 'comments' }];
     },
   },
   mounted() {
