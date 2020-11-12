@@ -25,7 +25,7 @@
       />
     </div>
     <div
-      v-if="selectedToken === 'native'"
+      v-if="selectedToken === 'native' && !symbol"
       class="input-group-append"
     >
       <span
@@ -46,6 +46,15 @@
         />
       </span>
     </div>
+
+    <div
+      v-if="symbol"
+      class="input-group-append"
+    >
+      <span class="input-group-text append__ae text-ellipsis">
+        <span class="ae">{{ symbol }}</span>
+      </span>
+    </div>
   </div>
 </template>
 
@@ -62,7 +71,8 @@ export default {
     min: { type: Number, default: 0 },
     step: { type: Number, default: 0.01 },
     value: { type: [Number, String], required: true },
-    selectTokenF: { type: Function, required: true },
+    selectTokenF: { type: Function, default: (t) => t },
+    symbol: { type: String, default: null },
     disabled: { type: Boolean },
     notTokenTipable: { type: Boolean },
   },
