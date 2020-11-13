@@ -1,5 +1,8 @@
 <template>
-  <div class="input-group">
+  <div
+    class="input-group"
+    :class="{ disabled }"
+  >
     <input
       :value="value"
       v-bind="$attrs"
@@ -114,6 +117,10 @@ export default {
     span {
       vertical-align: sub;
     }
+  }
+
+  &.disabled {
+    opacity: 0.44;
   }
 
   &:focus-within {
