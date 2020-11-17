@@ -20,6 +20,7 @@ jdenticon.config = IDENTICON_CONFIG;
 export default {
   props: {
     address: { type: String, default: '' },
+    showIdentIconOnly: { type: Boolean },
   },
   data: () => ({
     error: false,
@@ -32,6 +33,9 @@ export default {
         : `data:image/svg+xml;base64,${btoa(jdenticon.toSvg(this.address, 32))}`;
     },
     profileImageUrl({ address, profile }) {
+      if (this.showIdentIconOnly) {
+        return '';
+      }
       const key = address === this.address && profile?.signature?.slice(0, 5);
       return `${Backend.getProfileImageUrl(this.address)}?${key || ''}`;
     },
@@ -53,5 +57,10 @@ export default {
   flex-shrink: 0;
   overflow: hidden;
   object-fit: cover;
+}
+
+.token-avatar {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 </style>
