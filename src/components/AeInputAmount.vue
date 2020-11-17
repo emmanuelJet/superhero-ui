@@ -32,7 +32,7 @@
           :amount="!tokenTipable || selectedToken === 'native' ? value.toString() : '0'"
         />
       </span>
-      <CustomDropdown
+      <Dropdown
         v-if="tokenTipable"
         :options="selectTokenOptions"
         :selected="selectedToken"
@@ -53,7 +53,7 @@
             />
           </div>
         </template>
-      </CustomDropdown>
+      </Dropdown>
     </div>
   </div>
 </template>
@@ -61,13 +61,13 @@
 <script>
 import { mapState } from 'vuex';
 import FiatValue from './FiatValue.vue';
-import CustomDropdown from './CustomDropdown.vue';
+import Dropdown from './Dropdown.vue';
 import AeAmount from './AeAmount.vue';
 import TokenAvatarAndSymbol from './fungibleTokens/TokenAvatarAndSymbol.vue';
 
 export default {
   components: {
-    CustomDropdown, FiatValue, TokenAvatarAndSymbol, AeAmount,
+    Dropdown, FiatValue, TokenAvatarAndSymbol, AeAmount,
   },
   props: {
     min: { type: Number, default: 0 },

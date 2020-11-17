@@ -21,7 +21,7 @@
         {{ address }}
       </div>
       <div class="not-bootstrap-row">
-        <CustomDropdown
+        <Dropdown
           v-if="hasContractV2Address"
           :options="tokenBalancesOptions"
           :method="updateTokenBalance"
@@ -37,12 +37,12 @@
           <template slot-scope="{ option }">
             <TokenAvatarAndSymbol :address="option.token" />
           </template>
-        </CustomDropdown>
+        </Dropdown>
         <AeAmount
           v-else
           :amount="balance"
         />
-        <CustomDropdown
+        <Dropdown
           v-if="currencyDropdownOptions.length"
           :options="currencyDropdownOptions"
           :method="updateSelectedCurrency"
@@ -63,7 +63,7 @@
             </span>
             {{ option.currency.toUpperCase() }}
           </template>
-        </CustomDropdown>
+        </Dropdown>
       </div>
     </template>
     <OutlinedButton
@@ -79,14 +79,14 @@
 import { mapState, mapMutations, mapGetters } from 'vuex';
 import BigNumber from 'bignumber.js';
 import AeAmount from '../AeAmount.vue';
-import CustomDropdown from '../CustomDropdown.vue';
+import Dropdown from '../Dropdown.vue';
 import RightSectionTitle from './RightSectionTitle.vue';
 import OutlinedButton from '../OutlinedButton.vue';
 import TokenAvatarAndSymbol from '../fungibleTokens/TokenAvatarAndSymbol.vue';
 
 export default {
   components: {
-    RightSectionTitle, AeAmount, CustomDropdown, OutlinedButton, TokenAvatarAndSymbol,
+    RightSectionTitle, AeAmount, Dropdown, OutlinedButton, TokenAvatarAndSymbol,
   },
   props: { closed: Boolean },
   data: () => ({
@@ -173,7 +173,8 @@ export default {
     display: flex;
     align-items: center;
 
-    .ae-amount, .dropdown:first-child {
+    .ae-amount,
+    .dropdown:first-child {
       flex-grow: 1;
       font-size: 1rem;
     }
