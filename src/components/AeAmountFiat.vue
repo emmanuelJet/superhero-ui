@@ -8,6 +8,10 @@
       v-if="!token"
       v-bind="$attrs"
     />
+    <FiatValue
+      v-else
+      :amount="0"
+    />
   </span>
 </template>
 
