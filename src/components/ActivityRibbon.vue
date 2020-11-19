@@ -1,6 +1,5 @@
 <template>
   <div class="activity-ribbon">
-
     <FilterButton
       v-for="tab in tabs"
       :key="tab.text"

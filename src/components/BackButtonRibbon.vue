@@ -12,9 +12,8 @@
     </div>
 
     <div class="buttons">
-      <slot></slot>
+      <slot />
     </div>
-
   </div>
 </template>
 
