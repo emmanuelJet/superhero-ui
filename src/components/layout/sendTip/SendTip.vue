@@ -20,11 +20,21 @@
         />
         <div class="mt-2 d-flex flex-row">
           <div class="post-actions">
-            <ButtonPlain><IconPictures /></ButtonPlain>
-            <ButtonPlain><IconGif /></ButtonPlain>
-            <ButtonPlain><IconEmoji /></ButtonPlain>
-            <ButtonPlain><IconPoll /></ButtonPlain>
-            <ButtonPlain><IconThreeDots /></ButtonPlain>
+            <ButtonPlain :disabled="true">
+              <IconPictures />
+            </ButtonPlain>
+            <ButtonPlain :disabled="true">
+              <IconGif />
+            </ButtonPlain>
+            <ButtonPlain :disabled="true">
+              <IconEmoji />
+            </ButtonPlain>
+            <ButtonPlain :disabled="true">
+              <IconPoll />
+            </ButtonPlain>
+            <ButtonPlain :disabled="true">
+              <IconThreeDots />
+            </ButtonPlain>
           </div>
           <div class="separator" />
           <div class="text-right">
@@ -86,7 +96,9 @@
     <MessageInput
       v-else
       class="closed-view"
-      :placeholder="$t(feed === 'posts' ? 'Create New Post' : 'components.layout.SendTip.SendNewTip')"
+      :placeholder="$t(feed === 'posts' ?
+        'Create New Post' :
+        'components.layout.SendTip.SendNewTip')"
       @focus="canTip ? toggleSendTip(true) : openTipDeeplink()"
     />
   </div>
@@ -96,7 +108,7 @@
 import { mapState, mapGetters } from 'vuex';
 import AeInputAmount from '../../AeInputAmount.vue';
 import { createDeepLinkUrl, shiftDecimalPlaces } from '../../../utils';
-import { tip } from '../../../utils/aeternity';
+import { tip, postWithoutTip } from '../../../utils/aeternity';
 import { EventBus } from '../../../utils/eventBus';
 import Backend from '../../../utils/backend';
 import AeButton from '../../AeButton.vue';
@@ -201,8 +213,10 @@ export default {
     openTipDeeplink() {
       window.location = createDeepLinkUrl({ type: 'tip' });
     },
-    sendPost() {
-      console.log(this.sendPostForm);
+    async sendPost() {
+      postWithoutTip(this.sendPostForm.title)
+        .then((a) => console.log(a))
+        .catch((e) => console.log(e));
       this.clearPostForm();
     },
     clearPostForm() {

@@ -10,7 +10,8 @@ import TIPPING_V2_INTERFACE from 'tipping-contract/Tipping_v2_Interface.aes';
 import TIPPING_V3_INTERFACE from 'tipping-contract/Tipping_v3_Interface.aes';
 import FUNGIBLE_TOKEN_CONTRACT from 'aeternity-fungible-token/FungibleTokenFullInterface.aes';
 import { BigNumber } from 'bignumber.js';
-import { COMPILER_URL, NODE_URL } from '../config/constants';
+// eslint-disable-next-line no-unused-vars
+import { COMPILER_URL, NODE_URL, NODE_TEST_URL } from '../config/constants';
 import { EventBus } from './eventBus';
 import store from '../store';
 import { IS_MOBILE_DEVICE } from './index';
@@ -51,7 +52,7 @@ export const initClient = async () => {
         compilerUrl: COMPILER_URL,
         nodes: [{
           name: 'testnet',
-          instance: await Node({ url: 'https://testnet.aeternity.io' }),
+          instance: await Node({ url: NODE_TEST_URL }),
         }],
         accounts: [
           MemoryAccount({
@@ -67,7 +68,8 @@ export const initClient = async () => {
     } else {
       client = await RpcAepp({
         name: 'Superhero',
-        nodes: [{ name: 'node', instance: await Node({ url: NODE_URL }) }],
+        // nodes: [{ name: 'node', instance: await Node({ url: NODE_URL }) }],
+        nodes: [{ name: 'node', instance: await Node({ url: NODE_TEST_URL }) }],
         compilerUrl: COMPILER_URL,
         onDisconnect() {
           store.commit('resetState');
@@ -160,4 +162,12 @@ export const retip = async (contractAddress, id, amount, tokenAddress = null) =>
   }
 
   return null;
+};
+
+export const postWithoutTip = async (title) => {
+  await initTippingContractIfNeeded();
+  return contractV3.methods.post_without_tip(title, [' ']);
+  // console.log(contractV1);
+  // console.log(contractV2);
+  // console.log(contractV3);
 };
